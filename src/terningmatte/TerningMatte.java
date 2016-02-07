@@ -37,15 +37,17 @@ public class TerningMatte {
         System.out.println("Fyll opp rekken ved å velge hvilke(n) terning(er) du vil bruke");
         System.out.println();
         Terning[] t;
+	Integer trekk=0;
         Rekke r=new Rekke();
         t=new Terning[2];
         t[0]=new Terning();
         t[1]=new Terning();
         int svar=0;
         while (svar != 9) {
-            
+    	    trekk++;        
             System.out.println("Rekke:");
             r.skrivRekke();
+	    System.out.println("Trekk nr:"+trekk);
             System.out.println("Terning 1: "+t[0].giVerdi());
             System.out.println("Terning 2: "+t[1].giVerdi());
             System.out.println("Velg:");
