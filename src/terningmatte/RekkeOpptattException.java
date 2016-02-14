@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2016 Arne Hårseth
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,7 @@ package terningmatte;
  *
  * @author Arne Hårseth
  */
-public class RekkeException extends Exception {
+public class RekkeOpptattException extends RekkeException
+{
     
 }

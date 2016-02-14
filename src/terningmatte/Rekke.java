@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright (C) 2016 Arne Hårseth
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package terningmatte;
 
 /**
@@ -23,29 +22,41 @@ package terningmatte;
  */
 public class Rekke {
     private static final int lengde=9;
+    int antFyllt=0;
     public boolean[] rekke;
 
     /**
      * Rekkeobjekt for lagring av terningkast.
      * Initieres med usann.
      */
-    public Rekke() {
-            rekke=new boolean[lengde];
-            for(int i=0; i<(lengde-1); i++) {
-               rekke[i]=false;
-            }
-            
+    public Rekke() 
+    {
+        rekke=new boolean[lengde];
+        for(int i=0; i<(lengde-1); i++) {
+           rekke[i]=false;
+        }
+
     }
     
     /**
      *
      * @param posisjon  Sett sann i gitt posisjon (1-12)
-     * @throws RekkeException hvis posisjon > lengde
+     * @throws RekkeUtenforException hvis posisjon > lengde
+     * @throws RekkeOpptattException
      */
-    public void sett(int posisjon) throws RekkeException {
+    public void sett(int posisjon) throws RekkeUtenforException, RekkeOpptattException 
+    {
         if (posisjon > lengde)
-            throw new RekkeException();
-        rekke[posisjon-1]=true;
+            throw new RekkeUtenforException();
+        else
+        if (rekke[posisjon-1])
+            throw new RekkeOpptattException();
+        else
+        {
+            rekke[posisjon-1]=true;
+            antFyllt++;
+        }
+            
     }
     
     /**
@@ -58,7 +69,18 @@ public class Rekke {
     }
     
     /**
-     * SKriver ut rekka på kommandolinja.
+     * @return Returnerer om rekken er full
+     */
+    public boolean erFull() 
+    {
+        if(this.antFyllt==this.lengde)
+            return true;
+        else
+            return false;            
+    }
+    
+    /**
+     * Skriver ut rekka på kommandolinja.
      */
     public void skrivRekke() {
         for(int i=1; i<=lengde; i++) {

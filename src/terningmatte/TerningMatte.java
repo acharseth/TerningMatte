@@ -1,4 +1,4 @@
-/*
+/* 
  * Copyright (C) 2016 Arne Hårseth
  *
  * This program is free software: you can redistribute it and/or modify
@@ -14,7 +14,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package terningmatte;
 import terningspill.*;
 
@@ -43,7 +42,8 @@ public class TerningMatte {
         t[0]=new Terning();
         t[1]=new Terning();
         int svar=0;
-        while (svar != 9) {
+        boolean ferdig=false;
+        while (!ferdig) {
     	    trekk++;        
             System.out.println("Rekke:");
             r.skrivRekke();
@@ -60,6 +60,7 @@ public class TerningMatte {
             java.util.Scanner reader = new java.util.Scanner(System.in);  // Reading from System.in
             System.out.print("Valg (0-9): ");
             svar = reader.nextInt(); // Scans the next token of the input as an int.
+            System.out.println();
             System.out.println("Du svarte: "+svar);
             try {
                 switch (svar) {
@@ -74,14 +75,29 @@ public class TerningMatte {
                     case (3):
                         r.sett(t[0].giVerdi()+t[1].giVerdi());
                         break;
+                    case (9):
+                        ferdig=true;
+                        break;
                 }
             }
-            catch (RekkeException e) 
-                    { System.out.println("Utenfor rekke!"); }
-
-            t[0].kast();
-            t[1].kast();
-            System.out.println();
+            catch (RekkeUtenforException e) 
+                { System.out.println("Utenfor rekke!"); }
+            catch (RekkeOpptattException e)
+                { System.out.println("Posisjon allerede fyllt");}
+            if(r.erFull())
+            {
+                ferdig=true;
+                System.out.println();
+                r.skrivRekke();
+                System.out.println("Gratulerer, rekken er full!");
+                System.out.println("Du klarte det på " + trekk + " trekk");
+            }
+            else
+            {
+                t[0].kast();
+                t[1].kast();
+                System.out.println();
+            }
         }
         
     }
