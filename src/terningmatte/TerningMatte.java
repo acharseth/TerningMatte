@@ -23,7 +23,7 @@ import terningspill.*;
  * Terningspill for oppøving av regneferdigheter.
  * 
  * @author Arne Hårseth
- * 
+ * test
  */
 public class TerningMatte {
 
