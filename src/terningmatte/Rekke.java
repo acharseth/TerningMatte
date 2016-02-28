@@ -21,16 +21,21 @@ package terningmatte;
  * @author Arne Hårseth
  */
 public class Rekke {
-    private static final int lengde=9;
+    private final int rlengde;
     int antFyllt=0;
     public boolean[] rekke;
 
     /**
      * Rekkeobjekt for lagring av terningkast.
      * Initieres med usann.
+     * @param lengde
+     * @throws terningmatte.RekkeUtenforException
      */
-    public Rekke() 
+    public Rekke(int lengde) throws RekkeUtenforException
     {
+        if(lengde<9 || lengde>12)
+            throw new RekkeUtenforException();
+        rlengde=lengde;
         rekke=new boolean[lengde];
         for(int i=0; i<(lengde-1); i++) {
            rekke[i]=false;
@@ -46,7 +51,7 @@ public class Rekke {
      */
     public void sett(int posisjon) throws RekkeUtenforException, RekkeOpptattException 
     {
-        if (posisjon > lengde)
+        if (posisjon > rlengde)
             throw new RekkeUtenforException();
         else
         if (rekke[posisjon-1])
@@ -73,7 +78,7 @@ public class Rekke {
      */
     public boolean erFull() 
     {
-        if(this.antFyllt==this.lengde)
+        if(this.antFyllt==this.rlengde)
             return true;
         else
             return false;            
@@ -83,13 +88,13 @@ public class Rekke {
      * Skriver ut rekka på kommandolinja.
      */
     public void skrivRekke() {
-        for(int i=1; i<=lengde; i++) {
+        for(int i=1; i<=rlengde; i++) {
                System.out.printf("%2d", i); 
                System.out.print(" ");
             }
         System.out.println();
         System.out.print(" ");
-        for(int i=0; i<lengde; i++) {
+        for(int i=0; i<rlengde; i++) {
                if (rekke[i])
                        System.out.print("X");
                else

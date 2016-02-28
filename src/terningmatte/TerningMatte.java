@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package terningmatte;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import terningspill.*;
 
 /**
@@ -29,15 +31,33 @@ public class TerningMatte {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        java.util.Scanner reader = new java.util.Scanner(System.in);  // Reading from System.in
+        
         System.out.println("TerningMatte");
         System.out.println("************");
         System.out.println();
         System.out.println("Fyll opp rekken ved å velge hvilke(n) terning(er) du vil bruke");
         System.out.println();
+        System.out.print("Rekkelengde(9-12):");
+        int lengde;
+        lengde = reader.nextInt(); // Scans the next token of the input as an int.
         Terning[] t;
 	Integer trekk=0;
-        Rekke r=new Rekke();
+        Rekke r=null;
+        boolean rekkeOK=false;
+        while (!rekkeOK)  
+        {
+            try {
+                r = new Rekke(lengde);
+            } catch (RekkeUtenforException ex) {
+               /* Logger.getLogger(TerningMatte.class.getName()).log(Level.SEVERE, null, ex); */
+               System.out.println("Ikke tull'a"); 
+               System.out.print("Rekkelengde(9-12):");
+               lengde = reader.nextInt();
+            }
+            if (r != null)
+                rekkeOK=true;
+        }
         t=new Terning[2];
         t[0]=new Terning();
         t[1]=new Terning();
@@ -57,7 +77,7 @@ public class TerningMatte {
             System.out.println("3: Begge (sum)");
             System.out.println("9: Avslutt");
 
-            java.util.Scanner reader = new java.util.Scanner(System.in);  // Reading from System.in
+            
             System.out.print("Valg (0-9): ");
             svar = reader.nextInt(); // Scans the next token of the input as an int.
             System.out.println();
